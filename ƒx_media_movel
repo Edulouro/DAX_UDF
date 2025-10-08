@@ -1,0 +1,16 @@
+DEFINE
+	///Retorna a média móvel de uma medida pelo intervalo de uma coluna.
+	FUNCTION _MediaMovel = (
+		medida: expr, 
+		coluna: anyref, 
+		coluna_ord: anyref,
+		intervalo: int64
+	) =>
+		AVERAGEX(
+			WINDOW(
+				-intervalo, REL, 0, REL,
+				ALLSELECTED(coluna, coluna_ord),
+				ORDERBY(coluna, ASC)
+			),
+			medida
+		)
