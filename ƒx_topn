@@ -1,0 +1,15 @@
+DEFINE
+	///Retornar a medida dos top n de uma coluna.
+	FUNCTION _topn = (tops:int64, coluna:anyref, criterio: expr)=>
+		VAR __tops = 
+			TOPN(
+				tops,
+				ALLSELECTED(coluna),
+				criterio,
+				DESC
+			)
+		RETURN
+		    CALCULATE(
+				criterio,
+				KEEPFILTERS(__tops)
+			)
